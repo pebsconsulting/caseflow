@@ -116,6 +116,7 @@ export class Pdf extends React.PureComponent {
     this.currentPage = 0;
     this.isDrawing = {};
     this.isGettingPdf = {};
+    this.documentLoadTask = {};
 
     this.refFunctionGetters = {
       canvas: {},
@@ -484,10 +485,13 @@ export class Pdf extends React.PureComponent {
     // request is finishing.
     this.isGettingPdf[file] = true;
 
-    return PDFJS.getDocument({
+    this.documentLoadTask[file] = PDFJS.getDocument({
       url: file,
+      cache: true,
       withCredentials: true
-    }).then((pdfDocument) => {
+    });
+
+    return this.documentLoadTask[file].then((pdfDocument) => {
       this.isGettingPdf[file] = false;
 
       if ([...this.props.prefetchFiles, this.props.file].includes(file)) {
@@ -621,6 +625,10 @@ export class Pdf extends React.PureComponent {
   }
 
   cleanUpPdf = (pdf, file) => {
+    if (this.documentLoadTask[file]) {
+      this.documentLoadTask[file].destroy();
+    }
+
     if (pdf.pdfDocument) {
       pdf.pdfDocument.destroy();
     }

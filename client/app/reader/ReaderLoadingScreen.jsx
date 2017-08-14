@@ -8,7 +8,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import * as Constants from './constants';
 import _ from 'lodash';
 
-const PARALLEL_DOCUMENT_REQUESTS = 3;
+const PARALLEL_DOCUMENT_REQUESTS = 0;
 
 export class ReaderLoadingScreen extends React.Component {
 
