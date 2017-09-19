@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Prompt } from 'react-router';
 
 import PdfUI from './PdfUI';
 import PdfSidebar from './PdfSidebar';
@@ -104,12 +105,24 @@ export class PdfViewer extends React.Component {
     }
   }
 
+  hasUnsavedAnnotation = () => {
+    return this.props.placedButUnsavedAnnotation !== null || !_.isEmpty(this.props.editingAnnotations);
+  }
+
   componentDidUpdate = () => {
-    if (this.props.placedButUnsavedAnnotation) {
+    if (this.hasUnsavedAnnotation()) {
       let commentBox = document.getElementById('addComment');
+      window.addEventListener('beforeunload', this.onUnload);
 
       commentBox.focus();
     }
+    else {
+      window.removeEventListener('beforeunload', this.onUnload);
+    }
+  }
+
+  onUnload(event) {
+    event.returnValue = "You have unsaved comments. Are you sure you want to leave this page without saving?";
   }
 
   componentDidMount() {
@@ -123,6 +136,7 @@ export class PdfViewer extends React.Component {
 
   componentWillUnmount = () => {
     window.removeEventListener('keydown', this.keyListener);
+    window.removeEventListener("beforeunload", this.onUnload);
   }
 
   componentWillReceiveProps = (nextProps) => {
@@ -175,6 +189,7 @@ export class PdfViewer extends React.Component {
     return (
       <div>
         <div className="cf-pdf-page-container">
+          <Prompt when={this.hasUnsavedAnnotation()} message="You have unsaved comments. Are you sure you want to leave this page without saving?"></Prompt>
           <PdfUI
             doc={doc}
             prefetchFiles={this.getPrefetchFiles()}
@@ -226,7 +241,7 @@ const mapStateToProps = (state, props) => ({
   appeal: state.readerReducer.appeal,
   pageCoordsBounds: _.get(state.readerReducer, ['documentsByFile',
     state.readerReducer.documents[props.match.params.docId].content_url, 'pages']),
-  ..._.pick(state.readerReducer, 'placingAnnotationIconPageCoords'),
+  ..._.pick(state.readerReducer, 'placingAnnotationIconPageCoords', 'editingAnnotations'),
   ..._.pick(state.readerReducer.ui, 'deleteAnnotationModalIsOpenFor', 'placedButUnsavedAnnotation'),
   ..._.pick(state.readerReducer.ui.pdf, 'scrollToComment', 'hidePdfSidebar', 'isPlacingAnnotation')
 });
