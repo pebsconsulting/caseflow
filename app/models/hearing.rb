@@ -60,6 +60,7 @@ class Hearing < ActiveRecord::Base
     :number_of_documents, \
     :number_of_documents_after_certification, \
     :representative, \
+    :veteran, \
     to: :appeal, allow_nil: true
 
   # rubocop:disable Metrics/MethodLength
@@ -83,8 +84,6 @@ class Hearing < ActiveRecord::Base
         :veteran_name,
         :regional_office_name,
         :venue,
-        :cached_number_of_documents,
-        :cached_number_of_documents_after_certification,
         :vbms_id
       ]
     )
@@ -95,26 +94,33 @@ class Hearing < ActiveRecord::Base
     serializable_hash(
       methods: [:appeal_id,
                 :representative,
-                :appeals_ready_for_hearing],
+                :appeals_ready_for_hearing,
+                :cached_number_of_documents,
+                :cached_number_of_documents_after_certification],
       include: :issues
     ).merge(to_hash)
-  end
-
-  def set_issues_from_appeal
-    appeal.issues.each do |issue|
-      Issue.find_or_create_by(appeal: appeal, vacols_sequence_id: issue.vacols_sequence_id)
-    end if appeal
   end
 
   def appeals_ready_for_hearing
     active_appeal_streams.map(&:attributes_for_hearing)
   end
 
-  def set_initial_values(appeal_vacols_id, css_id)
-    self.appeal = Appeal.find_or_create_by(vacols_id: appeal_vacols_id)
-    self.user = User.find_by(css_id: css_id)
-    self.military_service = appeal.veteran.periods_of_service.join("\n") if appeal.veteran
-    save!
+  # If we do not yet have the military_service saved in Caseflow's DB, then
+  # we want to fetch it from BGS, save it to the DB, then return it
+  def military_service
+    super || begin
+      update_attributes(military_service: appeal.veteran.periods_of_service.join("\n")) if persisted? && veteran
+      super
+    end
+  end
+
+  # If we do not yet have the issues saved in Caseflow's DB, then
+  # we want to fetch it from VACOLS, save it to the DB, then return it
+  def issues
+    appeal.issues.each do |issue|
+      Issue.find_or_create_by(appeal: appeal, vacols_sequence_id: issue.vacols_sequence_id)
+    end if appeal && super.empty?
+    super
   end
 
   class << self
@@ -134,8 +140,10 @@ class Hearing < ActiveRecord::Base
           # If it is a master record, do not create a record in the hearings table
           return hearing if vacols_record.master_record?
 
-          hearing.set_initial_values(vacols_record.folder_nr, vacols_record.css_id) if hearing.new_record?
-          hearing.set_issues_from_appeal
+          hearing.update(
+            appeal: Appeal.find_or_create_by(vacols_id: vacols_record.folder_nr),
+            user: User.find_by(css_id: vacols_record.css_id)
+          ) if hearing.new_record?
         end
       end
     end
