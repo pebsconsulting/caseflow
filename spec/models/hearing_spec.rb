@@ -43,10 +43,7 @@ describe Hearing do
       let!(:issue2) { Generators::Issue.create(appeal: appeal) }
 
       it "should return issues through the appeal" do
-        # there are 3 issues associated with the appeal
-        # 1 issue is created in Generators::Appeal pending_hearing template
-        # 2 issues are created above
-        expect(subject["issues"].size).to eq 3
+        expect(subject["issues"].size).to eq 2
       end
     end
 
@@ -164,29 +161,29 @@ describe Hearing do
       end
 
       it "updates nested attributes (issues)" do
-        expect(hearing.issues.count).to eq(0)
-        subject # do update
         expect(hearing.issues.count).to eq(1)
+        subject # do update
+        expect(hearing.issues.count).to eq(2)
 
-        expect(hearing.issues.first.remand).to eq(true)
-        expect(hearing.issues.first.allow).to eq(false)
-        expect(hearing.issues.first.deny).to eq(false)
-        expect(hearing.issues.first.dismiss).to eq(false)
-        expect(hearing.issues.first.vha).to be_truthy
+        expect(hearing.issues.last.remand).to eq(true)
+        expect(hearing.issues.last.allow).to eq(false)
+        expect(hearing.issues.last.deny).to eq(false)
+        expect(hearing.issues.last.dismiss).to eq(false)
+        expect(hearing.issues.last.vha).to be_truthy
 
         # test that a 2nd save updates the same record, rather than create new one
-        hearing_issue_id = hearing.issues.first.id
+        hearing_issue_id = hearing.issues.last.id
         hearing_hash[:issues_attributes][0][:deny] = true
         hearing_hash[:issues_attributes][0][:id] = hearing_issue_id
 
         hearing.update(hearing_hash)
 
-        expect(hearing.issues.count).to eq(1)
-        expect(hearing.issues.first.id).to eq(hearing_issue_id)
-        expect(hearing.issues.first.deny).to eq(true)
-        expect(hearing.issues.first.remand).to eq(true)
-        expect(hearing.issues.first.allow).to eq(false)
-        expect(hearing.issues.first.dismiss).to eq(false)
+        expect(hearing.issues.count).to eq(2)
+        expect(hearing.issues.last.id).to eq(hearing_issue_id)
+        expect(hearing.issues.last.deny).to eq(true)
+        expect(hearing.issues.last.remand).to eq(true)
+        expect(hearing.issues.last.allow).to eq(false)
+        expect(hearing.issues.last.dismiss).to eq(false)
       end
     end
 
