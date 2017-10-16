@@ -10,6 +10,7 @@ import PdfViewer from './PdfViewer';
 import PdfListView from './PdfListView';
 import ReaderLoadingScreen from './ReaderLoadingScreen';
 import CaseSelect from './CaseSelect';
+import TestApp from './TestApp';
 import CaseSelectLoadingScreen from './CaseSelectLoadingScreen';
 import * as ReaderActions from './actions';
 import { CATEGORIES } from './analytics';
@@ -114,10 +115,7 @@ export class DecisionReviewer extends React.PureComponent {
     ;
   }
 
-  routedCaseSelect = (props) => <CaseSelectLoadingScreen assignments={this.props.assignments}>
-      <CaseSelect history={props.history}
-          feedbackUrl={this.props.feedbackUrl}/>
-    </CaseSelectLoadingScreen>
+  routedCaseSelect = (props) => <TestApp />
 
   render() {
     const Router = this.props.router || BrowserRouter;
