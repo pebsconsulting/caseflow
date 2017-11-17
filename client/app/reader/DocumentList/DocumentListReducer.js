@@ -230,17 +230,6 @@ const documentListReducer = (state = initialState, action = {}) => {
         $set: action.payload.appeal
       }
     });
-  // case Constants.RECEIVE_ANNOTATIONS:
-  //   //console.log(updateFilteredDocIds( annotationReducer(state.annotations, action)) );
-
-  //   console.log(update(state, {
-  //     annotations: annotationReducer(state.annotations, action)
-  //   }));
-
-  //   // return updateFilteredDocIds(update(state, {
-  //   //   annotations: annotationReducer(state.annotations, action)
-  //   // }));
-  //   return state;
   case Constants.SELECT_CURRENT_VIEWER_PDF:
     return updateLastReadDoc(update(state, {
       documents: {
