@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import * as Constants from '../constants';
 import { CATEGORIES, ENDPOINT_NAMES } from '../analytics';
 import ApiUtil from '../../util/ApiUtil';
-import { openAnnotationDeleteModal } from '../../reader/PdfViewer/PdfViewerActions';
+import { openAnnotationDeleteModal, showErrorMessage, hideErrorMessage } from '../../reader/PdfViewer/PdfViewerActions';
 
 export const selectAnnotation = (annotationId) => ({
   type: Constants.SELECT_ANNOTATION,
@@ -60,6 +60,8 @@ export const showPlaceAnnotationIcon = (pageIndex, pageCoords) => ({
 
 export const deleteAnnotation = (docId, annotationId) =>
   (dispatch) => {
+    dispatch(hideErrorMessage('annotation'));
+    dispatch(openAnnotationDeleteModal(annotationId, null, false));
     dispatch({
       type: Constants.REQUEST_DELETE_ANNOTATION,
       payload: {
@@ -81,16 +83,20 @@ export const deleteAnnotation = (docId, annotationId) =>
             annotationId
           }
         }),
-        () => dispatch({
-          type: Constants.REQUEST_DELETE_ANNOTATION_FAILURE,
-          payload: {
-            annotationId
-          }
-        })
+        () => {
+          dispatch(showErrorMessage('annotation'));
+          dispatch({
+            type: Constants.REQUEST_DELETE_ANNOTATION_FAILURE,
+            payload: {
+              annotationId
+            }
+          });
+        }
       );
   };
 
 export const requestMoveAnnotation = (annotation) => (dispatch) => {
+  dispatch(hideErrorMessage('annotation'));
   dispatch({
     type: Constants.REQUEST_MOVE_ANNOTATION,
     payload: {
@@ -108,18 +114,24 @@ export const requestMoveAnnotation = (annotation) => (dispatch) => {
 
   ApiUtil.patch(`/document/${annotation.documentId}/annotation/${annotation.id}`, { data }, ENDPOINT_NAMES.ANNOTATION).
     then(
-      () => dispatch({
-        type: Constants.REQUEST_MOVE_ANNOTATION_SUCCESS,
-        payload: {
-          annotationId: annotation.id
-        }
-      }),
-      () => dispatch({
-        type: Constants.REQUEST_MOVE_ANNOTATION_FAILURE,
-        payload: {
-          annotationId: annotation.id
-        }
-      })
+      () => {
+        dispatch(hideErrorMessage('annotation'));
+        dispatch({
+          type: Constants.REQUEST_MOVE_ANNOTATION_SUCCESS,
+          payload: {
+            annotationId: annotation.id
+          }
+        });
+      },
+      () => {
+        dispatch(showErrorMessage('annotation'));
+        dispatch({
+          type: Constants.REQUEST_MOVE_ANNOTATION_FAILURE,
+          payload: {
+            annotationId: annotation.id
+          }
+        });
+      }
     );
 };
 
@@ -179,7 +191,7 @@ export const requestEditAnnotation = (annotation) => (dispatch) => {
 
     return;
   }
-
+  dispatch(hideErrorMessage('annotation'));
   dispatch({
     type: Constants.REQUEST_EDIT_ANNOTATION,
     payload: {
@@ -197,24 +209,31 @@ export const requestEditAnnotation = (annotation) => (dispatch) => {
 
   ApiUtil.patch(`/document/${annotation.documentId}/annotation/${annotation.id}`, { data }, ENDPOINT_NAMES.ANNOTATION).
     then(
-      () => dispatch({
-        type: Constants.REQUEST_EDIT_ANNOTATION_SUCCESS,
-        payload: {
-          annotationId: annotation.id
-        }
-      }),
-      () => dispatch({
-        type: Constants.REQUEST_EDIT_ANNOTATION_FAILURE,
-        payload: {
-          annotationId: annotation.id
-        }
-      })
+      () => {
+        dispatch(hideErrorMessage('annotation'));
+        dispatch({
+          type: Constants.REQUEST_EDIT_ANNOTATION_SUCCESS,
+          payload: {
+            annotationId: annotation.id
+          }
+        });
+      },
+      () => {
+        dispatch(showErrorMessage('annotation'));
+        dispatch({
+          type: Constants.REQUEST_EDIT_ANNOTATION_FAILURE,
+          payload: {
+            annotationId: annotation.id
+          }
+        });
+      }
     );
 };
 
 export const createAnnotation = (annotation) => (dispatch) => {
   const temporaryId = uuid.v4();
 
+  dispatch(hideErrorMessage('annotation'));
   dispatch({
     type: Constants.REQUEST_CREATE_ANNOTATION,
     payload: {
@@ -232,6 +251,7 @@ export const createAnnotation = (annotation) => (dispatch) => {
       (response) => {
         const responseObject = JSON.parse(response.text);
 
+        dispatch(hideErrorMessage('annotation'));
         dispatch({
           type: Constants.REQUEST_CREATE_ANNOTATION_SUCCESS,
           payload: {
@@ -243,11 +263,14 @@ export const createAnnotation = (annotation) => (dispatch) => {
           }
         });
       },
-      () => dispatch({
-        type: Constants.REQUEST_CREATE_ANNOTATION_FAILURE,
-        payload: {
-          annotationTemporaryId: temporaryId
-        }
-      })
+      () => {
+        dispatch(showErrorMessage('annotation'));
+        dispatch({
+          type: Constants.REQUEST_CREATE_ANNOTATION_FAILURE,
+          payload: {
+            annotationTemporaryId: temporaryId
+          }
+        });
+      }
     );
 };

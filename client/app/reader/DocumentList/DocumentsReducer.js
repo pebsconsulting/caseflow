@@ -13,9 +13,9 @@ const documentsReducer = (state = {}, action = {}) => {
         receivedAt: doc.received_at,
         listComments: false
       }
-    ])
-      .fromPairs()
-      .value();
+    ]).
+      fromPairs().
+      value();
   case Constants.TOGGLE_DOCUMENT_CATEGORY_FAIL:
     return update(state, {
       [action.payload.docId]: {

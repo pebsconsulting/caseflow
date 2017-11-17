@@ -7,17 +7,20 @@ import DecisionReviewer from './DecisionReviewer';
 import readerReducer from './reducer';
 import caseSelectReducer from './CaseSelect/CaseSelectReducer';
 import documentListReducer from './DocumentList/documentListReducer';
+import annotationsReducer from './DocumentList/AnnotationReducer';
+
 import { getReduxAnalyticsMiddleware } from '../util/getReduxAnalyticsMiddleware';
 import { reducer as searchReducer, reduxSearch } from 'redux-search';
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger';
 
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   combineReducers({
     caseSelect: caseSelectReducer,
-    documentList: documentListReducer,  
+    documentList: documentListReducer,
     readerReducer,
+    annotations: annotationsReducer,
     search: searchReducer
   }),
   composeEnhancers(

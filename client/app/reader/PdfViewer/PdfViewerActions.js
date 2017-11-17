@@ -26,28 +26,28 @@ export const showErrorMessage = (messageType) => ({
 
 /** Annotation Modal **/
 
-export const openAnnotationDeleteModal = (annotationId, analyticsLabel) => ({
+export const openAnnotationDeleteModal = (annotationId, analyticsLabel, includeMetrics = true) => ({
   type: Constants.OPEN_ANNOTATION_DELETE_MODAL,
   payload: {
     annotationId
   },
-  meta: {
+  meta: (includeMetrics ? {
     analytics: {
       category: CATEGORIES.VIEW_DOCUMENT_PAGE,
       action: 'open-annotation-delete-modal',
       label: analyticsLabel
     }
-  }
+  } : null)
 });
 
-export const closeAnnotationDeleteModal = () => ({
+export const closeAnnotationDeleteModal = (includeMetrics = true) => ({
   type: Constants.CLOSE_ANNOTATION_DELETE_MODAL,
-  meta: {
+  meta: (includeMetrics ? {
     analytics: {
       category: CATEGORIES.VIEW_DOCUMENT_PAGE,
       action: 'close-annotation-delete-modal'
     }
-  }
+  } : null)
 });
 
 /** Jump To Page **/

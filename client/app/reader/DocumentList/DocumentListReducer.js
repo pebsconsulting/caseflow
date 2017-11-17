@@ -1,10 +1,9 @@
 import * as Constants from './actionTypes';
-import {DOCUMENTS_OR_COMMENTS_ENUM} from '../constants';
+import { DOCUMENTS_OR_COMMENTS_ENUM } from '../constants';
 import _ from 'lodash';
-import {update} from '../../util/ReducerUtil';
-import {updateFilteredDocIds} from '../helpers/reducerHelper';
+import { update } from '../../util/ReducerUtil';
+import { updateFilteredDocIds } from '../helpers/reducerHelper';
 import documentsReducer from './DocumentsReducer';
-import annotationReducer from './AnnotationsReducer';
 
 const updateLastReadDoc = (state, docId) => update(state, {
   ui: {
@@ -53,7 +52,15 @@ const initialState = {
     manifestVvaFetchedAt: null
   },
 
-  annotations: {}
+  annotations: {},
+
+  /**
+   * `editingAnnotations` is an object of annotations that are currently being edited.
+   * When a user starts editing an annotation, we copy it from `annotations` to `editingAnnotations`.
+   * To commit the edits, we copy from `editingAnnotations` back into `annotations`.
+   * To discard the edits, we delete from `editingAnnotations`.
+   */
+  editingAnnotations: {}
 };
 
 const documentListReducer = (state = initialState, action = {}) => {
@@ -223,10 +230,17 @@ const documentListReducer = (state = initialState, action = {}) => {
         $set: action.payload.appeal
       }
     });
-  case Constants.RECEIVE_ANNOTATIONS:
-    return updateFilteredDocIds(update(state, {
-      annotations: annotationReducer(state.annotations, action)
-    }));
+  // case Constants.RECEIVE_ANNOTATIONS:
+  //   //console.log(updateFilteredDocIds( annotationReducer(state.annotations, action)) );
+
+  //   console.log(update(state, {
+  //     annotations: annotationReducer(state.annotations, action)
+  //   }));
+
+  //   // return updateFilteredDocIds(update(state, {
+  //   //   annotations: annotationReducer(state.annotations, action)
+  //   // }));
+  //   return state;
   case Constants.SELECT_CURRENT_VIEWER_PDF:
     return updateLastReadDoc(update(state, {
       documents: {
