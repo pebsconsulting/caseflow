@@ -280,14 +280,12 @@ class DocumentsTable extends React.Component {
   }
 
   render() {
-    console.log(this.props.annotationsPerDocument);
     
     const rowObjects = getRowObjects(
       this.props.documents,
       this.props.annotationsPerDocument,
       this.props.viewingDocumentsOrComments
     );
-
 
     return <div>
       <Table
@@ -326,7 +324,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 
 const mapStateToProps = (state) => ({
-  annotationsPerDocument: getAnnotationsPerDocument(state.documentList),
+  annotationsPerDocument: getAnnotationsPerDocument(state.annotationsLayer),
   ..._.pick(state.documentList, 'viewingDocumentsOrComments'),
   ..._.pick(state.documentList.ui, 'docFilterCriteria', 'pdfList'),
   ..._.pick(state.readerReducer.ui, 'tagOptions')

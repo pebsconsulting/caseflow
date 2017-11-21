@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 import * as Constants from './actionTypes';
-import {DOCUMENTS_OR_COMMENTS_ENUM, ROTATION_INCREMENTS, COMPLETE_ROTATION} from '../constants';
-import {update} from '../../util/ReducerUtil';
+import { DOCUMENTS_OR_COMMENTS_ENUM, ROTATION_INCREMENTS, COMPLETE_ROTATION } from '../constants';
+import { update } from '../../util/ReducerUtil';
 
 const documentsReducer = (state = {}, action = {}) => {
   switch (action.type) {

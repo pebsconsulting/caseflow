@@ -369,7 +369,7 @@ const mapStateToProps = (state, props) => {
     ...state.documentList.ui.pdf,
     arePageDimensionsSet: numPagesDefined === numPages,
     pageContainers,
-    ..._.pick(state.readerReducer, 'placingAnnotationIconPageCoords'),
+    ..._.pick(state.annotationsLayer, 'placingAnnotationIconPageCoords'),
     rotation: _.get(state.documentList.documents, [props.documentId, 'rotation']),
     sidebarHidden: state.readerReducer.ui.pdf.hidePdfSidebar
   };

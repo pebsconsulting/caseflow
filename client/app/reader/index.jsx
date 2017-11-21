@@ -7,7 +7,7 @@ import DecisionReviewer from './DecisionReviewer';
 import readerReducer from './reducer';
 import caseSelectReducer from './CaseSelect/CaseSelectReducer';
 import documentListReducer from './DocumentList/documentListReducer';
-import annotationsReducer from './DocumentList/AnnotationReducer';
+import annotationsLayerReducer from './DocumentList/AnnotationsLayerReducer';
 
 import { getReduxAnalyticsMiddleware } from '../util/getReduxAnalyticsMiddleware';
 import { reducer as searchReducer, reduxSearch } from 'redux-search';
@@ -20,7 +20,7 @@ const store = createStore(
     caseSelect: caseSelectReducer,
     documentList: documentListReducer,
     readerReducer,
-    annotations: annotationsReducer,
+    annotationsLayer: annotationsLayerReducer,
     search: searchReducer
   }),
   composeEnhancers(

@@ -7,7 +7,6 @@ import { moveModel } from '../utils';
 const initialState = {
   annotations: {},
   placingAnnotationIconPageCoords: null,
-
   ui: {
     pendingAnnotations: {},
     pendingEditingAnnotations: {},
@@ -25,7 +24,7 @@ const initialState = {
   editingAnnotations: {}
 };
 
-const annotationReducer = (state = initialState, action = {}) => {
+const annotationsLayerReducer = (state = initialState, action = {}) => {
   switch (action.type) {
   case Constants.SHOW_PLACE_ANNOTATION_ICON:
     return update(state, {
@@ -49,7 +48,7 @@ const annotationReducer = (state = initialState, action = {}) => {
       }
     });
   case Constants.RECEIVE_ANNOTATIONS:
-    return updateFilteredDocIds(update(
+    return update(
       state,
       {
         annotations: {
@@ -63,7 +62,7 @@ const annotationReducer = (state = initialState, action = {}) => {
             value()
         }
       }
-    ));
+    );
   case Constants.REQUEST_DELETE_ANNOTATION:
     return update(state, {
       editingAnnotations: {
@@ -255,4 +254,4 @@ const annotationReducer = (state = initialState, action = {}) => {
   }
 };
 
-export default annotationReducer;
+export default annotationsLayerReducer;
