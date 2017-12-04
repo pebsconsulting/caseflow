@@ -25,7 +25,7 @@ export class CaseSelectLoadingScreen extends React.Component {
         const returnedObject = JSON.parse(response.text);
 
         this.props.onReceiveAssignments(returnedObject.cases);
-      }, this.props.onInitialCaseLoadingFail);
+      }, (error) => console.log(error.rawResponse));//this.props.onInitialCaseLoadingFail);
     }
   }
 

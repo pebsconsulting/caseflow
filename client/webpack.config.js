@@ -6,9 +6,9 @@ const devBuild = process.env.NODE_ENV !== 'production';
 
 const config = {
   entry: [
+    'babel-polyfill',
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
-    'babel-polyfill',
     './app/index'
   ],
 
