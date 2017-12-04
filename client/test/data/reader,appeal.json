@@ -1,0 +1,349 @@
+{
+    "cases": [
+        {
+            "id": 51,
+            "vacols_id": "reader_id1",
+            "vbms_id": "1234",
+            "rice_compliance": false,
+            "private_attorney_or_agent": false,
+            "waiver_of_overpayment": false,
+            "pension_united_states": false,
+            "vamc": false,
+            "incarcerated_veterans": false,
+            "dic_death_or_accrued_benefits_united_states": false,
+            "vocational_rehab": false,
+            "foreign_claim_compensation_claims_dual_claims_appeals": false,
+            "manlincon_compliance": false,
+            "hearing_including_travel_board_video_conference": false,
+            "home_loan_guaranty": false,
+            "insurance": false,
+            "national_cemetery_administration": false,
+            "spina_bifida": false,
+            "radiation": false,
+            "nonrating_issue": false,
+            "us_territory_claim_philippines": false,
+            "contaminated_water_at_camp_lejeune": false,
+            "mustard_gas": false,
+            "education_gi_bill_dependents_educational_assistance_scholars": false,
+            "foreign_pension_dic_all_other_foreign_countries": false,
+            "foreign_pension_dic_mexico_central_and_south_america_caribb": false,
+            "us_territory_claim_american_samoa_guam_northern_mariana_isla": false,
+            "us_territory_claim_puerto_rico_and_virgin_islands": false,
+            "dispatched_to_station": null,
+            "appeal_series_id": null,
+            "veteran_full_name": "Simple A Case",
+            "docket_number": "13 11-265",
+            "type": "Court Remand",
+            "cavc": true,
+            "aod": true,
+            "viewed": true,
+            "issues": [
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 1,
+                    "id": "6e6328636"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "increased_rating",
+                        "label": "Increased Rating"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 2,
+                    "id": "0b7cb0e57"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 3,
+                    "id": "1198416c3"
+                }
+            ],
+            "regional_office": {
+                "city": "Baltimore",
+                "state": "MD",
+                "timezone": "America/New_York",
+                "key": "RO13"
+            }
+        },
+        {
+            "id": 104,
+            "vacols_id": "reader_id2",
+            "vbms_id": "5",
+            "rice_compliance": false,
+            "private_attorney_or_agent": false,
+            "waiver_of_overpayment": false,
+            "pension_united_states": false,
+            "vamc": false,
+            "incarcerated_veterans": false,
+            "dic_death_or_accrued_benefits_united_states": false,
+            "vocational_rehab": false,
+            "foreign_claim_compensation_claims_dual_claims_appeals": false,
+            "manlincon_compliance": false,
+            "hearing_including_travel_board_video_conference": false,
+            "home_loan_guaranty": false,
+            "insurance": false,
+            "national_cemetery_administration": false,
+            "spina_bifida": false,
+            "radiation": false,
+            "nonrating_issue": false,
+            "us_territory_claim_philippines": false,
+            "contaminated_water_at_camp_lejeune": false,
+            "mustard_gas": false,
+            "education_gi_bill_dependents_educational_assistance_scholars": false,
+            "foreign_pension_dic_all_other_foreign_countries": false,
+            "foreign_pension_dic_mexico_central_and_south_america_caribb": false,
+            "us_territory_claim_american_samoa_guam_northern_mariana_isla": false,
+            "us_territory_claim_puerto_rico_and_virgin_islands": false,
+            "dispatched_to_station": null,
+            "appeal_series_id": null,
+            "veteran_full_name": "Large B Case",
+            "docket_number": "13 11-265",
+            "type": "Remand",
+            "cavc": false,
+            "aod": true,
+            "viewed": true,
+            "issues": [
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 1,
+                    "id": "3086a1d35"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 2,
+                    "id": "902f6ecd3"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 3,
+                    "id": "2fb225f64"
+                }
+            ],
+            "regional_office": {
+                "city": "Baltimore",
+                "state": "MD",
+                "timezone": "America/New_York",
+                "key": "RO13"
+            }
+        },
+        {
+            "id": 103,
+            "vacols_id": "reader_id3",
+            "vbms_id": "6",
+            "rice_compliance": false,
+            "private_attorney_or_agent": false,
+            "waiver_of_overpayment": false,
+            "pension_united_states": false,
+            "vamc": false,
+            "incarcerated_veterans": false,
+            "dic_death_or_accrued_benefits_united_states": false,
+            "vocational_rehab": false,
+            "foreign_claim_compensation_claims_dual_claims_appeals": false,
+            "manlincon_compliance": false,
+            "hearing_including_travel_board_video_conference": false,
+            "home_loan_guaranty": false,
+            "insurance": false,
+            "national_cemetery_administration": false,
+            "spina_bifida": false,
+            "radiation": false,
+            "nonrating_issue": false,
+            "us_territory_claim_philippines": false,
+            "contaminated_water_at_camp_lejeune": false,
+            "mustard_gas": false,
+            "education_gi_bill_dependents_educational_assistance_scholars": false,
+            "foreign_pension_dic_all_other_foreign_countries": false,
+            "foreign_pension_dic_mexico_central_and_south_america_caribb": false,
+            "us_territory_claim_american_samoa_guam_northern_mariana_isla": false,
+            "us_territory_claim_puerto_rico_and_virgin_islands": false,
+            "dispatched_to_station": null,
+            "appeal_series_id": null,
+            "veteran_full_name": "Redacted C Case",
+            "docket_number": "13 11-265",
+            "type": "Remand",
+            "cavc": false,
+            "aod": true,
+            "viewed": true,
+            "issues": [
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 1,
+                    "id": "9767fac1f"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 2,
+                    "id": "4dfe5ab22"
+                },
+                {
+                    "disposition": "remanded",
+                    "description": [
+                        "15 - Service connection",
+                        "03 - All Others",
+                        "5252 - Thigh, limitation of flexion of"
+                    ],
+                    "levels": [
+                        "Lumbosacral",
+                        "All Others",
+                        "Thigh, limitation of flexion of"
+                    ],
+                    "program_description": "02 - Compensation",
+                    "program": "compensation",
+                    "type": {
+                        "name": "service_connection",
+                        "label": "Service Connection"
+                    },
+                    "category": "knee",
+                    "note": "low back condition",
+                    "vacols_sequence_id": 3,
+                    "id": "7f009b7f1"
+                }
+            ],
+            "regional_office": {
+                "city": "Baltimore",
+                "state": "MD",
+                "timezone": "America/New_York",
+                "key": "RO13"
+            }
+        }
+    ]
+}
