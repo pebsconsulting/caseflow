@@ -169,36 +169,13 @@ body {
   }
 }
 
+.cf-app-width {
+  @include app-width('default');
+}
+
 .cf-app-hearings {
   .cf-app-width {
     @include app-width('hearings');
-  }
-}
-
-.cf-app-dispatch,
-.cf-app-dispatch-arc,
-.cf-app-not-set,
-.cf-app-internal {
-  .cf-app-width {
-    @include app-width('dispatch');
-  }
-}
-
-.cf-app-certification {
-  .cf-app-width {
-    @include app-width('cert');
-  }
-}
-
-.cf-app-efolder {
-  .cf-app-width {
-    @include app-width('efolder');
-  }
-}
-
-.cf-app-intake {
-  .cf-app-width {
-    @include app-width('intake');
   }
 }
 
@@ -264,6 +241,13 @@ body {
 
 .cf-logo-image-intake {
   background-image: url(asset-path('caseflow-intake-logo.svg'));
+  width: 32px;
+  height: 32px;
+  background-size: 32px 32px;
+}
+
+.cf-logo-image-status {
+  background-image: url(asset-path('caseflow-status-logo.svg'));
   width: 32px;
   height: 32px;
   background-size: 32px 32px;

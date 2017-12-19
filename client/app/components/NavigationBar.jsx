@@ -13,7 +13,8 @@ const CLASS_NAME_MAPPING = {
   feedback: 'cf-logo cf-logo-image-feedback',
   efolder: 'cf-logo cf-logo-image-efolder',
   dispatch: 'cf-logo cf-logo-image-dispatch',
-  intake: 'cf-logo cf-logo-image-intake'
+  intake: 'cf-logo cf-logo-image-intake',
+  status: 'cf-logo cf-logo-image-status'
 };
 
 export default class NavigationBar extends React.Component {
@@ -46,7 +47,7 @@ export default class NavigationBar extends React.Component {
             <h1 className={this.getClassName(appName)}>
               <Link id="cf-logo-link" to={defaultUrl}>
                   Caseflow
-                <h2 id="page-title" className="cf-application-title">&nbsp; {appName}</h2>
+                <h2 id="page-title" className="cf-application-title">&nbsp;{appName}</h2>
               </Link>
             </h1>
             <Breadcrumbs>
