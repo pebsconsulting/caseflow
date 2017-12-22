@@ -4,7 +4,7 @@ class Hearing < ActiveRecord::Base
   include HearingConcern
   include AppealConcern
 
-  vacols_attr_accessor :veteran_first_name, :veteran_middle_initial, :veteran_last_name
+  vacols_attr_accessor :veteran_first_name, :veteran_middle_initial, :veteran_last_name, :veteran_gender
   vacols_attr_accessor :appellant_first_name, :appellant_middle_initial, :appellant_last_name
   vacols_attr_accessor :date, :type, :venue_key, :vacols_record, :disposition
   vacols_attr_accessor :aod, :hold_open, :transcript_requested, :notes, :add_on
@@ -87,7 +87,8 @@ class Hearing < ActiveRecord::Base
       veteran_last_name: veteran_last_name,
       appellant_first_name: appellant_first_name,
       appellant_middle_initial: appellant_middle_initial,
-      appellant_last_name: appellant_last_name
+      appellant_last_name: appellant_last_name,
+      veteran_gender: veteran_gender
     }
   end
 
@@ -119,7 +120,8 @@ class Hearing < ActiveRecord::Base
         :regional_office_name,
         :regional_office_timezone,
         :venue, :appellant_last_first_mi,
-        :veteran_name, :vbms_id
+        :veteran_name, :vbms_id,
+        :veteran_gender
       ],
       except: :military_service
     ).merge(
@@ -141,6 +143,7 @@ class Hearing < ActiveRecord::Base
                 :military_service,
                 :appellant_mi_formatted,
                 :veteran_mi_formatted,
+                :veteran_gender,
                 :sanitized_vbms_id]
     ).merge(to_hash(current_user_id))
   end

@@ -18,7 +18,8 @@ class Generators::Hearing
         appellant_first_name: generate_first_name,
         appellant_middle_initial: "A",
         appellant_last_name: generate_last_name,
-        master_record: false
+        master_record: false,
+        veteran_gender: "Female"
       }
     end
 

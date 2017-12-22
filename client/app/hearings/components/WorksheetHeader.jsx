@@ -100,6 +100,10 @@ class WorksheetHeader extends React.PureComponent {
           <div>Veteran's Age:</div>
           <div className={olderVeteran && 'cf-red-text'}>{worksheet.veteran_age}</div>
         </div>
+        <div className="cf-hearings-worksheet-data-cell column-3">
+          <div>Gender:</div>
+          <div>{worksheet.veteran_gender}</div>
+        </div>
         <div className="cf-hearings-worksheet-data-cell column-4">
         </div>
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-witness-cell column-5">
