@@ -10,7 +10,7 @@ const titles = {
 const messages = {
   404: 'We could not find the file number. This could be because we have no record of an appeal by that Veteran.',
   422: 'Check whether the file number is formatted correctly. It should be a number without letters or spaces.',
-  500: 'Caseflow could not look up the appeals for this file number right now. Try again later.'
+  500: 'Caseflow could not look up the appeals for this file number right now. Please try again later.'
 }
 
 class FileNumberSearchError extends React.PureComponent {
