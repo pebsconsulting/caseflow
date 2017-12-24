@@ -1,8 +1,8 @@
 class StatusesController < ApplicationController
   before_action :verify_access, :verify_feature_enabled, :set_application, :react_routed
-  before_action :set_json_appeal_history
 
   def index
+    set_json_appeal_history
     render template: "status/index"
   end
 
@@ -14,8 +14,10 @@ class StatusesController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { render template: "status/index" }
-      format.json { render json: json_appeal_series }
+      format.html do
+        set_json_appeal_history
+        render template: "status/index"
+      end
     end
   end
 
@@ -49,24 +51,8 @@ class StatusesController < ApplicationController
     @appeal ||= Appeal.find_or_create_by_vacols_id(vacols_id) if vacols_id
   end
 
-  def appeal_series
-    return @appeal_series unless @appeal_series.nil?
-    appeal_history # Ensure appeal_series are calculated and up-to-date
-    @appeal_series = appeal.appeal_series(reload: true)
-  end
-
   def appeal_history
     @appeal_history ||= AppealHistory.new(vbms_id: vbms_id)
-  end
-
-  def json_appeal_series
-    return nil unless has_params?
-
-    ActiveModelSerializers::SerializableResource.new(
-      appeal_series,
-      serializer: ::V2::AppealSerializer,
-      key_transform: :camel_lower
-    ).as_json
   end
 
   def json_appeal_history

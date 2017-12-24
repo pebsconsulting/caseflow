@@ -178,6 +178,7 @@ class Appeal < ActiveRecord::Base
     @poa ||= PowerOfAttorney.new(file_number: sanitized_vbms_id, vacols_id: vacols_id).load_bgs_record!
   end
 
+  attr_writer :hearings
   def hearings
     @hearings ||= Hearing.repository.hearings_for_appeal(vacols_id)
   end
@@ -198,6 +199,7 @@ class Appeal < ActiveRecord::Base
     end
   end
 
+  attr_writer :cavc_decisions
   def cavc_decisions
     @cavc_decisions ||= CAVCDecision.repository.cavc_decisions_by_appeal(vacols_id)
   end
