@@ -409,9 +409,9 @@ class Appeal < ActiveRecord::Base
     @issues ||= self.class.repository.issues(vacols_id)
   end
 
-  # A uniqued list of issue codes on appeal, that is the combination of ISSPROG and ISSCODE
-  def issue_codes
-    issues.map(&:issue_code).uniq
+  # A uniqued list of issue categories on appeal, that is the combination of ISSPROG and ISSCODE
+  def issue_categories
+    issues.map(&:category).uniq
   end
 
   # If we do not yet have the worksheet issues saved in Caseflow's DB, then
@@ -468,7 +468,7 @@ class Appeal < ActiveRecord::Base
       includes: [:vbms_id, :vacols_id]
     ).tap do |hash|
       hash["viewed"] = viewed
-      hash["issues"] = issues
+      hash["issues"] = issues ? issues.map(&:attributes) : nil
       hash["regional_office"] = regional_office_hash
     end
   end
