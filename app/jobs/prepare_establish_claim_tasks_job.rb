@@ -8,13 +8,15 @@ class PrepareEstablishClaimTasksJob < ActiveJob::Base
       status = task.prepare_with_decision!
       count[:success] += (status == :success ? 1 : 0)
       count[:fail] += (status == :failed ? 1 : 0)
+      count[:missing_decision] += (status == :missing_decision ? 1 : 0)
     end
     log_info(count)
   end
 
   def log_info(count)
     msg = "PrepareEstablishClaimTasksJob successfully ran: #{count[:success]} tasks " \
-          "prepared and #{count[:fail]} tasks failed"
+          "prepared and #{count[:fail]} tasks failed " \
+          "and #{count[:missing_decision]} tasks missing decision "
     Rails.logger.info msg
     msg += "\n<!here>" if count[:fail] > 0
     SlackService.new(url: url).send_notification(msg)
