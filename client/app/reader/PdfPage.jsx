@@ -32,6 +32,8 @@ export class PdfPage extends React.PureComponent {
     this.isDrawing = false;
     this.marks = [];
     this.measureTimeStartMs = null;
+    this.currentRenderTask = null;
+    this.isUnmounted = false;
   }
 
   getPageContainerRef = (pageContainer) => this.pageContainer = pageContainer
@@ -110,14 +112,17 @@ export class PdfPage extends React.PureComponent {
     this.canvas.width = viewport.width;
 
     // Call PDFJS to actually draw the page.
-    return page.render({
+    this.currentRenderTask = page.render({
       canvasContext: this.canvas.getContext('2d', { alpha: false }),
       viewport
-    }).then(() => {
+    });
+
+    return this.currentRenderTask.then(() => {
       this.isDrawing = false;
 
       // If the scale has changed, draw the page again at the latest scale.
       if (currentScale !== this.props.scale && page) {
+        console.log('redrawing', this.props.pageIndex);
         return this.drawPage(page);
       }
     }).
@@ -125,6 +130,8 @@ export class PdfPage extends React.PureComponent {
         // We might need to do something else here.
         this.isDrawing = false;
       });
+
+    return renderTask;
   }
 
   componentDidMount = () => {
@@ -132,6 +139,12 @@ export class PdfPage extends React.PureComponent {
   }
 
   componentWillUnmount = () => {
+    this.isUnmounted = true;
+    // console.log('unmounting', this.props.pageIndex)
+    if (this.currentRenderTask) {
+      console.log('canceling', this.props.pageIndex);
+      this.currentRenderTask.cancel();
+    }
     this.isDrawing = false;
     if (this.props.page) {
       this.props.page.cleanup();
@@ -142,6 +155,7 @@ export class PdfPage extends React.PureComponent {
   }
 
   componentDidUpdate = (prevProps) => {
+    // console.log('updating', this.props.pageIndex);
     if (this.props.isPageVisible && !prevProps.isPageVisible) {
       this.measureTimeStartMs = performance.now();
     }
@@ -194,15 +208,27 @@ export class PdfPage extends React.PureComponent {
   // Set up the page component in the Redux store. This includes the page dimensions, text,
   // and PDFJS page object.
   setUpPage = () => {
+    console.log('calling setup page for', this.props.pageIndex);
+    if (this.isUnmounted) {
+      console.log('returning from setupPage', this.props.pageIndex);
+      return;
+    }
     if (this.props.pdfDocument && !this.props.pdfDocument.transport.destroyed) {
       this.props.pdfDocument.getPage(pageNumberOfPageIndex(this.props.pageIndex)).then((page) => {
+        if (this.isUnmounted) {
+          console.log('returning from setupPage 2', this.props.pageIndex);
+          return;
+        }
         this.page = page;
 
         this.getText(page).then((text) => {
           this.drawText(page, text);
         });
 
+        const timing = performance.now();
+        console.log('about to call draw', this.props.pageIndex);
         this.drawPage(page).then(() => {
+          console.log(`drawing page ${this.props.pageIndex} finished in ${performance.now() - timing}ms`)
           collectHistogram({
             group: 'front_end',
             name: 'pdf_page_render_time_in_ms',

@@ -30,7 +30,7 @@ export class PdfFile extends React.PureComponent {
     this.loadingTask = null;
     this.pdfDocument = null;
     this.grid = null;
-    this.rowStartIndex = 0;
+    this.sectionRendered = 0;
     this.scrollTop = 0;
     this.scrollLeft = 0;
     this.scrollLocation = {};
@@ -98,10 +98,10 @@ export class PdfFile extends React.PureComponent {
       // Set the scroll location based on the current page and where you
       // are on that page scaled by the zoom factor.
       const zoomFactor = nextProps.scale / this.props.scale;
-      const nonZoomedLocation = (this.scrollTop - this.getOffsetForPageIndex(this.rowStartIndex).scrollTop);
+      const nonZoomedLocation = (this.scrollTop - this.getOffsetForPageIndex(this.sectionRendered.rowStartIndex).scrollTop);
 
       this.scrollLocation = {
-        page: this.rowStartIndex,
+        page: this.sectionRendered.rowStartIndex,
         locationOnPage: nonZoomedLocation * zoomFactor
       };
     }
@@ -125,6 +125,15 @@ export class PdfFile extends React.PureComponent {
         pdfDocument={this.props.pdfDocument}
       />
     </div>;
+  }
+
+  isPageRendered = (pageIndex) => {
+    const { rowIndex, columnIndex } = this.pageRowAndColumn(pageIndex);
+    // debugger;
+    return rowIndex >= this.sectionRendered.rowOverscanStartIndex &&
+           rowIndex <= this.sectionRendered.rowOverscanStopIndex &&
+           columnIndex >= this.sectionRendered.columnOverscanStartIndex &&
+           columnIndex <= this.sectionRendered.columnOverscanStopIndex;
   }
 
   pageDimensions = (index) => this.props.pageDimensions[`${this.props.file}-${index}`]
@@ -222,6 +231,7 @@ export class PdfFile extends React.PureComponent {
   }
 
   scrollToScrollTop = (pageIndex, locationOnPage = this.props.scrollTop) => {
+    console.log('scrolling to location', pageIndex, locationOnPage);
     this.scrollToPosition(pageIndex, locationOnPage);
     this.props.setDocScrollPosition(null);
   }
@@ -247,6 +257,18 @@ export class PdfFile extends React.PureComponent {
     };
   }
 
+  overscanIndicesGetter = ({
+    cellCount,          // Number of rows or columns in the current axis
+    overscanCellsCount, // Maximum number of cells to over-render in either direction
+    startIndex,         // Begin of range of visible cells
+    stopIndex           // End of range of visible cells
+  }) => {
+    return {
+      overscanStartIndex: Math.max(0, startIndex - overscanCellsCount),
+      overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount)
+    };
+  }
+
   scrollToSearchTerm = (prevProps) => {
     const { pageIndex, relativeIndex } = this.getPageIndexofMatch();
 
@@ -264,8 +286,11 @@ export class PdfFile extends React.PureComponent {
       this.props.updateSearchRelativeIndex(relativeIndex);
       this.props.updateSearchIndexPage(pageIndex);
 
-      // if the page has been scrolled out of DOM, scroll back to it, setting scrollTop
-      this.grid.scrollToCell(this.pageRowAndColumn(pageIndex));
+      if (!this.isPageRendered(pageIndex)) {
+        console.log('scrolling to cell');
+        // if the page has been scrolled out of DOM, scroll back to it, setting scrollTop
+        this.grid.scrollToCell(this.pageRowAndColumn(pageIndex));
+      }
     }
   }
 
@@ -282,8 +307,8 @@ export class PdfFile extends React.PureComponent {
     }
   }
 
-  onSectionRendered = ({ rowStartIndex }) => {
-    this.rowStartIndex = rowStartIndex;
+  onSectionRendered = (sectionRendered) => {
+    this.sectionRendered = sectionRendered;
   }
 
   onPageChange = (index, clientHeight) => {
@@ -399,7 +424,7 @@ export class PdfFile extends React.PureComponent {
 
           this.columnCount = Math.min(Math.max(Math.floor(width / this.getColumnWidth()), 1),
             this.props.pdfDocument.pdfInfo.numPages);
-
+//overscanIndicesGetter={this.overscanIndicesGetter}
           return <Grid
             ref={this.getGrid}
             containerStyle={{
@@ -408,6 +433,7 @@ export class PdfFile extends React.PureComponent {
             }}
             estimatedRowSize={(this.props.baseHeight + PAGE_MARGIN) * this.props.scale}
             overscanRowCount={Math.floor(this.props.windowingOverscan / this.columnCount)}
+
             onSectionRendered={this.onSectionRendered}
             onScroll={this.onScroll}
             height={height}
