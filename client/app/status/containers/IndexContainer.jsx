@@ -39,7 +39,8 @@ class IndexContainer extends React.PureComponent {
       { this.props.appealHistory &&
         <div>
           <div className="cf-help-divider"></div>
-          <h2>[VETERAN NAME]</h2>
+          <h2>JOE SNUFFY</h2>
+          <p><a href="#">Download as JSON</a></p>
           <AppealHistoryTable appeals={this.props.appealHistory.data} />
         </div>
       }
