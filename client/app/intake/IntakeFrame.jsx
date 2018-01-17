@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import PageRoute from '../components/PageRoute';
 import AppFrame from '../components/AppFrame';
 import AppSegment from '../components/AppSegment';
@@ -21,6 +21,8 @@ import CompletedPage, { CompletedNextButton } from './pages/completed';
 import { PAGE_PATHS, REQUEST_STATE } from './constants';
 import { toggleCancelModal, submitCancel } from './actions/common';
 import { LOGO_COLORS } from '@department-of-veterans-affairs/appeals-frontend-toolkit/util/StyleConstants';
+
+window.IntakeLink = Link;
 
 class IntakeFrame extends React.PureComponent {
   handleSubmitCancel = () => (
