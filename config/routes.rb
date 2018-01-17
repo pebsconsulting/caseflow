@@ -119,6 +119,8 @@ Rails.application.routes.draw do
     get '/:user_id', to: 'queue#tasks'
   end
 
+  resources :statuses, path: "status", only: [:index, :create, :show]
+
   get "health-check", to: "health_checks#show"
   get "dependencies-check", to: "dependencies_checks#show"
   get "login" => "sessions#new"
