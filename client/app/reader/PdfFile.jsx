@@ -184,7 +184,7 @@ export class PdfFile extends React.PureComponent {
     columnIndex: pageIndex % this.columnCount
   })
 
-  getOffsetForPageIndex = (pageIndex) => this.grid.getOffsetForCell(this.pageRowAndColumn(pageIndex))
+  getOffsetForPageIndex = (pageIndex) => this.grid.getOffsetForCell({ alignment: 'center', ...this.pageRowAndColumn(pageIndex) })
 
   scrollToPosition = (pageIndex, locationOnPage = 0) => {
     const position = this.getOffsetForPageIndex(pageIndex);
@@ -301,7 +301,7 @@ export class PdfFile extends React.PureComponent {
     this.scrollLeft = scrollLeft;
 
     if (this.grid) {
-      let lastIndex = 0;
+      let lastIndex = null;
 
       _.range(0, this.props.pdfDocument.pdfInfo.numPages).forEach((index) => {
         const offset = this.getOffsetForPageIndex(index);
