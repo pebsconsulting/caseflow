@@ -83,7 +83,7 @@ class ApplicationController < ApplicationBaseController
   helper_method :dropdown_urls
 
   def certification_header(title)
-    "&nbsp &gt &nbsp".html_safe + title
+    "&nbsp; &gt; &nbsp;".html_safe + title
   end
   helper_method :certification_header
 
@@ -126,7 +126,7 @@ class ApplicationController < ApplicationBaseController
   end
 
   def page_title(title)
-    "&nbsp &#124 &nbsp".html_safe + title
+    "&nbsp; &#124; &nbsp;".html_safe + title
   end
   helper_method :page_title
 
