@@ -150,7 +150,7 @@ RSpec.feature "Queue" do
     end
 
     context "loads appeal summary view" do
-      scenario "appeal has hearing" do
+      scenario "appeal has hearing", skip: true do
         appeal = vacols_appeals.reject { |a| a.hearings.empty? }.first
         hearing = appeal.hearings.first
 
