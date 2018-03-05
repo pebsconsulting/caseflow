@@ -12,6 +12,7 @@ import Modal from '../components/Modal';
 import Table from '../components/Table';
 import Accordion from '../components/Accordion';
 import AccordionSection from '../components/AccordionSection';
+import { setPageDimensions } from '../reader/Pdf/PdfActions';
 import { Keyboard } from '../components/RenderFunctions';
 import SideBarDocumentInformation from './SideBarDocumentInformation';
 import SideBarCategories from './SideBarCategories';
@@ -97,6 +98,15 @@ export class PdfSidebar extends React.Component {
     }
   }
 
+  testMethod = () => {
+    this.props.setPageDimensions(
+      "/document/5/pdf",
+      0,
+      { width: 800,
+        height: 1000 },
+      147);
+  }
+
   onAccordionOpenOrClose = (openedSections) =>
     this.props.setOpenedAccordionSections(openedSections, this.props.openedAccordionSections)
 
@@ -153,7 +163,7 @@ export class PdfSidebar extends React.Component {
           name="hide menu"
           classNames={['cf-pdf-button']}
           id="hide-menu-header"
-          onClick={this.props.togglePdfSidebar}>
+          onClick={this.testMethod}>
           <h2 className="cf-non-stylized-header">
               Hide menu <i className="fa fa-chevron-right" aria-hidden="true"></i>
           </h2>
@@ -269,6 +279,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   ...bindActionCreators({
+    setPageDimensions,
     togglePdfSidebar,
     setOpenedAccordionSections,
     selectAnnotation,
