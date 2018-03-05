@@ -260,8 +260,7 @@ const mapStateToProps = (state) => ({
   ..._.pick(state.pdfViewer, 'hidePdfSidebar'),
   ..._.pick(state.annotationLayer, 'placingAnnotationIconPageCoords',
     'deleteAnnotationModalIsOpenFor', 'placedButUnsavedAnnotation', 'isPlacingAnnotation'),
-  ..._.pick(state.pdf, 'scrollToComment'),
-  pageDimensions: {}
+  ..._.pick(state.pdf, 'scrollToComment', 'pageDimensions')
 });
 
 const mapDispatchToProps = (dispatch) => ({
