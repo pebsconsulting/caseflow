@@ -20,6 +20,37 @@ export const pdfReducer = (state = initialState, action = {}) => {
       scrollToComment: { $set: action.payload.scrollToComment }
     });
   case Constants.SET_UP_PAGE_DIMENSIONS:
+  {
+    // if (!_.filter(state.pageDimensions, (page) => page.file === action.payload.file).length) {
+    //   const pages = _.range(0, action.payload.numPages).reduce((acc, index) => {
+    //     acc[`${action.payload.file}-${index}`] = {
+    //       ...action.payload.dimensions,
+    //       file: action.payload.file,
+    //       pageIndex: index
+    //     };
+
+    //     return acc;
+    //   }, {});
+
+    //   return update(
+    //     state,
+    //     {
+    //       pageDimensions: {
+    //         $merge: pages
+    //       }
+    //     }
+    //   );
+    // }
+//     const defaultDimensions = state.pageDimensions[`${action.payload.file}-default`] || action.payload.dimensions;
+// ,
+//           [`${action.payload.file}-default`]: {
+//             $set: {
+//               ...defaultDimensions,
+//               file: action.payload.file,
+//               pageIndex: 'default'
+//             }
+//           }
+    
     return update(
       state,
       {
@@ -34,6 +65,7 @@ export const pdfReducer = (state = initialState, action = {}) => {
         }
       }
     );
+  }
   case Constants.SET_PDF_DOCUMENT:
     return update(
       state,

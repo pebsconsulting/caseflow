@@ -237,11 +237,29 @@ export class PdfPage extends React.PureComponent {
   getDimensions = (page) => {
     const viewport = page.getViewport(PAGE_DIMENSION_SCALE);
 
-    this.props.setPageDimensions(
-      this.props.file,
-      this.props.pageIndex,
-      { width: viewport.width,
-        height: viewport.height });
+    // console.log('pageDimensions', this.props.pageDimensions);
+    // if (!this.props.pageDimensions) {
+      this.props.setPageDimensions(
+        this.props.file,
+        this.props.pageIndex,
+        { width: viewport.width,
+          height: viewport.height },
+        this.props.pdfDocument.pdfInfo.numPages);
+    // }
+    // if (Math.abs(_.get(this.props, ['pageDimensions', 'width'], 0) - viewport.width) > 30 ||
+    //   Math.abs(_.get(this.props, ['pageDimensions', 'height'], 0) - viewport.height) > 30) {
+
+    //   console.log('setting dimensions', this.props.pageDimensions, viewport);
+
+    //   this.props.setPageDimensions(
+    //     this.props.file,
+    //     this.props.pageIndex,
+    //     { width: viewport.width,
+    //       height: viewport.height },
+    //     this.props.pdfDocument.pdfInfo.numPages);
+    // } else {
+    //   console.log('not setting dimensions', this.props.pageDimensions, viewport);
+    // }
   }
 
   getDivDimensions = () => {

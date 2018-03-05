@@ -40,6 +40,14 @@ export class PdfFile extends React.PureComponent {
     this.columnCount = 1;
   }
 
+  // getPageDimensions(pdfDocument) => {
+  //   const dimensions = _.range(0, pdfDocument.pdfInfo.numPages).map(() => {
+  //     pdfDocument.getPage(pageNumberOfPageIndex(this.props.pageIndex)).then((page) => {
+  //       return 
+  //     })
+  //   });
+  // }
+
   componentDidMount = () => {
     PDFJS.workerSrc = this.props.pdfWorker;
 
@@ -69,6 +77,7 @@ export class PdfFile extends React.PureComponent {
           this.loadingTask = null;
           this.pdfDocument = pdfDocument;
           this.props.setPdfDocument(this.props.file, pdfDocument);
+          // this.getPageDimensions(pdfDocument);
         }
       }).
       catch(() => {
