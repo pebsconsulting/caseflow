@@ -10,6 +10,7 @@ const initialState = {
 };
 
 export default function searchReducer(state = initialState, action = {}) {
+  console.log('SEARCH ', action.type)
   switch (action.type) {
   case Constants.UPDATE_SEARCH_INDEX:
     return update(state, {

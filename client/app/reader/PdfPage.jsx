@@ -36,11 +36,12 @@ const markStyle = css({
   }
 });
 
-export class PdfPage extends React.PureComponent {
+export class PdfPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.isDrawing = false;
+    this.renderTask = null;
     this.marks = [];
     this.measureTimeStartMs = null;
   }
@@ -97,9 +98,10 @@ export class PdfPage extends React.PureComponent {
   }
 
   onClick = () => {
-    if (this.marks.length) {
-      this.props.setSearchIndexToHighlight(this.getMatchIndexOffsetFromPage());
-    }
+    this.getDimensions(this.page);
+    // if (this.marks.length) {
+    //   this.props.setSearchIndexToHighlight(this.getMatchIndexOffsetFromPage());
+    // }
   }
 
   // This method is the interaction between our component and PDFJS.
@@ -121,10 +123,11 @@ export class PdfPage extends React.PureComponent {
     this.canvas.width = viewport.width;
 
     // Call PDFJS to actually draw the page.
-    return page.render({
+    this.renderTask = page.render({
       canvasContext: this.canvas.getContext('2d', { alpha: false }),
       viewport
-    }).then(() => {
+    })
+    return this.renderTask.then(() => {
       this.isDrawing = false;
 
       // If the scale has changed, draw the page again at the latest scale.
@@ -144,6 +147,11 @@ export class PdfPage extends React.PureComponent {
 
   componentWillUnmount = () => {
     this.isDrawing = false;
+
+    if (this.renderTask) {
+      this.renderTask.cancel();
+    }
+
     if (this.props.page) {
       this.props.page.cleanup();
       if (this.markInstance) {
@@ -235,7 +243,10 @@ export class PdfPage extends React.PureComponent {
   }
 
   getDimensions = (page) => {
+    const t0 = performance.now();
+    
     const viewport = page.getViewport(PAGE_DIMENSION_SCALE);
+
 
     // console.log('pageDimensions', this.props.pageDimensions);
     // if (!this.props.pageDimensions) {
@@ -245,6 +256,7 @@ export class PdfPage extends React.PureComponent {
         { width: viewport.width,
           height: viewport.height },
         this.props.pdfDocument.pdfInfo.numPages);
+      console.log('Time to getViewport', performance.now() - t0);
     // }
     // if (Math.abs(_.get(this.props, ['pageDimensions', 'width'], 0) - viewport.width) > 30 ||
     //   Math.abs(_.get(this.props, ['pageDimensions', 'height'], 0) - viewport.height) > 30) {
@@ -282,6 +294,13 @@ export class PdfPage extends React.PureComponent {
       outerDivHeight: this.props.scale * innerDivDimensions.innerDivHeight,
       ...innerDivDimensions
     };
+  }
+
+  shouldComponentUpdate = (nextProps) => {
+    console.log('shouldComponentUpdate', nextProps.pageDimensions, this.props.pageDimensions, !(_.get(nextProps.pageDimensions, ['width']) === _.get(this.props.pageDimensions, ['width']) &&
+      _.get(nextProps.pageDimensions, ['height']) === _.get(this.props.pageDimensions, ['height'])));
+    return !(_.get(nextProps.pageDimensions, ['width']) === _.get(this.props.pageDimensions, ['width']) &&
+      _.get(nextProps.pageDimensions, ['height']) === _.get(this.props.pageDimensions, ['height']));
   }
 
   render() {
