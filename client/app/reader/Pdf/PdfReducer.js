@@ -50,7 +50,12 @@ export const pdfReducer = (state = initialState, action = {}) => {
 //               pageIndex: 'default'
 //             }
 //           }
-    
+    const width = _.get(state.pageDimensions, [`${action.payload.file}-${action.payload.pageIndex}`, 'width']);
+    const height = _.get(state.pageDimensions, [`${action.payload.file}-${action.payload.pageIndex}`, 'height']);
+    if (width === action.payload.dimensions.width && height === action.payload.dimensions.height) {
+      return state;
+    }
+
     return update(
       state,
       {

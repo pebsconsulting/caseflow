@@ -243,20 +243,20 @@ export class PdfPage extends React.Component {
   }
 
   getDimensions = (page) => {
-    const t0 = performance.now();
+    // const t0 = performance.now();
     
-    const viewport = page.getViewport(PAGE_DIMENSION_SCALE);
+    // const viewport = page.getViewport(PAGE_DIMENSION_SCALE);
 
 
-    // console.log('pageDimensions', this.props.pageDimensions);
-    // if (!this.props.pageDimensions) {
-      this.props.setPageDimensions(
-        this.props.file,
-        this.props.pageIndex,
-        { width: viewport.width,
-          height: viewport.height },
-        this.props.pdfDocument.pdfInfo.numPages);
-      console.log('Time to getViewport', performance.now() - t0);
+    // // console.log('pageDimensions', this.props.pageDimensions);
+    // // if (!this.props.pageDimensions) {
+    //   this.props.setPageDimensions(
+    //     this.props.file,
+    //     this.props.pageIndex,
+    //     { width: viewport.width,
+    //       height: viewport.height },
+    //     this.props.pdfDocument.pdfInfo.numPages);
+    //   console.log('Time to getViewport', performance.now() - t0);
     // }
     // if (Math.abs(_.get(this.props, ['pageDimensions', 'width'], 0) - viewport.width) > 30 ||
     //   Math.abs(_.get(this.props, ['pageDimensions', 'height'], 0) - viewport.height) > 30) {
@@ -297,8 +297,8 @@ export class PdfPage extends React.Component {
   }
 
   shouldComponentUpdate = (nextProps) => {
-    console.log('shouldComponentUpdate', nextProps.pageDimensions, this.props.pageDimensions, !(_.get(nextProps.pageDimensions, ['width']) === _.get(this.props.pageDimensions, ['width']) &&
-      _.get(nextProps.pageDimensions, ['height']) === _.get(this.props.pageDimensions, ['height'])));
+    // console.log('shouldComponentUpdate', nextProps.pageDimensions, this.props.pageDimensions, !(_.get(nextProps.pageDimensions, ['width']) === _.get(this.props.pageDimensions, ['width']) &&
+      // _.get(nextProps.pageDimensions, ['height']) === _.get(this.props.pageDimensions, ['height'])));
     return !(_.get(nextProps.pageDimensions, ['width']) === _.get(this.props.pageDimensions, ['width']) &&
       _.get(nextProps.pageDimensions, ['height']) === _.get(this.props.pageDimensions, ['height']));
   }
