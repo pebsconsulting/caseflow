@@ -3,7 +3,7 @@ import * as Constants from './actionTypes';
 
 const initialState = {
   matchIndex: 0,
-  indexToHighlight: null,
+  pageToSearchFrom: null,
   relativeIndex: 0,
   pageIndexWithMatch: null,
   extractedText: {},
@@ -24,10 +24,10 @@ export default function searchReducer(state = initialState, action = {}) {
         $set: action.payload.index
       }
     });
-  case Constants.SET_SEARCH_INDEX_TO_HIGHLIGHT:
+  case Constants.SET_PAGE_TO_SEARCH_FROM:
     return update(state, {
-      indexToHighlight: {
-        $set: action.payload.index
+      pageToSearchFrom: {
+        $set: action.payload.pageIndex
       }
     });
   case Constants.UPDATE_SEARCH_INDEX_PAGE_INDEX:

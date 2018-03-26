@@ -51,10 +51,10 @@ export const setSearchIndex = (index) => ({
   }
 });
 
-export const setSearchIndexToHighlight = (index) => ({
-  type: Constants.SET_SEARCH_INDEX_TO_HIGHLIGHT,
+export const setPageToSearchFrom = (pageIndex) => ({
+  type: Constants.SET_PAGE_TO_SEARCH_FROM,
   payload: {
-    index
+    pageIndex
   }
 });
 

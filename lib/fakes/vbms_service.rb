@@ -60,7 +60,7 @@ class Fakes::VBMSService
         file = File.join(Rails.root, "lib", "pdfs", "KnockKnockJokes.pdf") unless File.exist?(file)
         file
       end
-    IO.binread(path)
+    IO.binread(File.join(Rails.root, "lib", "pdfs", "War_and_Peace_NT.pdf"))
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 

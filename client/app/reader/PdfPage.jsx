@@ -81,17 +81,9 @@ export class PdfPage extends React.PureComponent {
     }
   }
 
-  getMatchIndexOffsetFromPage = (pageIndex = this.props.pageIndex) => {
-    // get sum of matches from pages below pageIndex
-    return _(this.props.matchesPerPage).
-      filter((page) => page.pageIndex < pageIndex).
-      map((page) => page.matches).
-      sum();
-  }
-
   onClick = () => {
     if (this.marks.length) {
-      this.props.setSearchIndexToHighlight(this.getMatchIndexOffsetFromPage());
+      this.props.setPageToSearchFrom(this.props.pageIndex);
     }
   }
 
