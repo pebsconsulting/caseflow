@@ -12,10 +12,10 @@ import ReaderHelp from './components/ReaderHelp';
 import DispatchHelp from './components/DispatchHelp';
 import IntakeHelp from './components/IntakeHelp';
 
+import SearchRootView from '../queue/SearchRootView';
+
 class Help extends React.PureComponent {
-
   render() {
-
     return <BrowserRouter>
       <div>
         <NavigationBar
@@ -36,7 +36,7 @@ class Help extends React.PureComponent {
             <PageRoute exact
               path="/"
               title="Caseflow Help"
-              component={HelpRootView} />
+              component={this.props.featureToggles.case_search_home_page ? SearchRootView : HelpRootView} />
             <PageRoute exact
               path="/certification/help"
               title="Certification Help"

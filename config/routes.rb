@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   get 'intake/help' => 'help#intake'
 
   # alias root to help; make sure to keep this below the canonical route so url_for works
-  root 'help#welcome'
+  root 'help#index'
 
 
   resources :intakes, path: "intake", only: [:index, :create, :destroy] do
