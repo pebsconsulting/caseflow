@@ -15,13 +15,15 @@ import IntakeHelp from './components/IntakeHelp';
 import SearchRootView from '../queue/SearchRootView';
 
 class Help extends React.PureComponent {
+  appName = () => this.props.featureToggles.case_search_home_page ? "" : "Help"
+
   render() {
     return <BrowserRouter>
       <div>
         <NavigationBar
           userDisplayName={this.props.userDisplayName}
           dropdownUrls={this.props.dropdownUrls}
-          appName="Help"
+          appName={this.appName()}
           defaultUrl="/"
           logoProps={{
             accentColor: COLORS.GREY_DARK,
@@ -35,7 +37,7 @@ class Help extends React.PureComponent {
               component={HelpRootView} />
             <PageRoute exact
               path="/"
-              title="Caseflow Help"
+              title={`Caseflow ${this.appName()}`}
               component={this.props.featureToggles.case_search_home_page ? SearchRootView : HelpRootView} />
             <PageRoute exact
               path="/certification/help"
@@ -60,7 +62,7 @@ class Help extends React.PureComponent {
           </div>
         </AppFrame>
         <Footer
-          appName="Help"
+          appName={this.appName()}
           feedbackUrl={this.props.feedbackUrl}
           buildDate={this.props.buildDate} />
       </div>
