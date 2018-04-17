@@ -38,7 +38,7 @@ class WorksheetHeader extends React.PureComponent {
       <div className="cf-title-meta-right">
         <div className="title cf-hearings-title-and-judge">
           {!this.props.print &&
-          <h1>Hearing Worksheet</h1>
+          <h1>{appellant}'s Hearing Worksheet</h1>
           }
           {this.props.print &&
           <h1 className="cf-hearings-print-worksheet-header">Hearing Worksheet</h1>
@@ -46,53 +46,46 @@ class WorksheetHeader extends React.PureComponent {
           <span>VLJ: {worksheet.user ? worksheet.user.full_name : ''}</span>
         </div>
         <div className="meta">
-          <div>{moment(worksheet.date).format('ddd l')}</div>
+          <div>{moment(worksheet.date).format('l')}</div>
           <div>Hearing Type: {worksheet.request_type}</div>
         </div>
       </div>
 
+      <div className="title cf-hearings-title-and-judge">
+        <h1 className={classNames({ 'cf-hearings-print-worksheet-header': this.props.print })}>
+          {appellant}'s Hearing Worksheet
+        </h1>
+      </div>
       <div className="cf-hearings-worksheet-data">
-        {!this.props.print &&
-        <h2 className="cf-hearings-worksheet-header">Appellant/Veteran Information</h2>
-        }
-        {this.props.print &&
-         <h2 className="cf-hearings-print-worksheet-header">Appellant/Veteran Information</h2>
-        }
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-1">
-          <div>Appellant Name:</div>
-          <div><b>{appellant}</b></div>
+          <div>VLJ</div>
+          <div>{worksheet.user ? worksheet.user.full_name : ''}</div>
         </div>
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-2">
-          <div>City/State:</div>
-          <div>{worksheet.appellant_city && worksheet.appellant_state ?
-            `${worksheet.appellant_city}, ${worksheet.appellant_state}` : ''}</div>
+          <div>Hearing Type</div>
+          <div>{worksheet.request_type}</div>
         </div>
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-3">
-          <div>Regional Office:</div>
+          <div>Regional Office</div>
           <div>{worksheet.regional_office_name}</div>
         </div>
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-4">
-          <div>Representative Org:</div>
-          <div>{worksheet.representative}</div>
+          <div>Date</div>
+          <div>{moment(worksheet.date).format('l')}</div>
         </div>
-        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-5">
-          <TextField
-            name="Rep. Name:"
-            id="appellant-vet-rep-name"
-            aria-label="Representative Name"
-            value={worksheet.representative_name || ''}
-            onChange={this.props.onRepNameChange}
-            maxLength={30}
-            fixedInput={this.props.print}
-          />
-        </div>
-        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-1">
+      </div>
+
+      <div className="cf-hearings-worksheet-data">
+        <h2 className={classNames({
+          'cf-hearings-worksheet-header': !this.props.print,
+          'cf-hearings-print-worksheet-header': this.props.print
+        })}>Veteran/Appellant information</h2>
+        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-1">
           <div>Veteran Name:</div>
           <div><b>{worksheet.veteran_mi_formatted}</b></div>
         </div>
-
-        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-2">
-          <div>Veteran ID:</div>
+        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-2">
+          <div>Veteran ID</div>
           <div>
             {!this.props.print &&
               <CopyToClipboard text={worksheet.sanitized_vbms_id}>
@@ -109,14 +102,46 @@ class WorksheetHeader extends React.PureComponent {
             }
           </div>
         </div>
-        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-3">
+        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-3">
           <div>Veteran's Age:</div>
           <div className={veteranClassNames}>{worksheet.veteran_age}</div>
         </div>
-        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-4">
+        <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell column-4">
           <div>Gender:</div>
           <div>{getVeteranGender(worksheet.veteran_sex)}</div>
         </div>
+            
+        <div className="cf-hearings-worksheet-data">
+          <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-1">
+            <div>Appellant Name</div>
+            <div><b>{appellant}</b></div>
+          </div>
+          <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-second-cell column-2">
+            <div>City/State</div>
+            <div>{worksheet.appellant_city && worksheet.appellant_state ?
+              `${worksheet.appellant_city}, ${worksheet.appellant_state}` : ''}</div>
+          </div>
+        </div>
+        
+        <div className="cf-hearings-worksheet-data">
+          <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell">
+            <div>Representative Org</div>
+            <div>{worksheet.representative}</div>
+          </div>
+          <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-data-first-cell">
+            <TextField
+              name="Representative Name"
+              id="appellant-vet-rep-name"
+              aria-label="Representative Name"
+              value={worksheet.representative_name || ''}
+              onChange={this.props.onRepNameChange}
+              maxLength={30}
+              fixedInput={this.props.print}
+              strongLabel
+            />
+          </div>
+        </div>
+
         <div className="cf-hearings-worksheet-data-cell cf-hearings-worksheet-witness-cell
         cf-hearings-worksheet-data-second-cell column-5">
           <label htmlFor="appellant-vet-witness">Witness (W)/Observer (O):</label>
