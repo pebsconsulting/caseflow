@@ -23,7 +23,6 @@ import HearingWorksheetDocs from './components/HearingWorksheetDocs';
 
 import {
   onContentionsChange,
-  onMilitaryServiceChange,
   onEvidenceChange,
   onCommentsForAttorneyChange,
   toggleWorksheetSaving,
@@ -123,10 +122,9 @@ export class HearingWorksheet extends React.PureComponent {
     });
   };
 
-  onContentionsChange = (value) => this.props.onContentionsChange(value);
-  onMilitaryServiceChange = (value) => this.props.onMilitaryServiceChange(value);
-  onEvidenceChange = (value) => this.props.onEvidenceChange(value);
-  onCommentsForAttorneyChange = (value) => this.props.onCommentsForAttorneyChange(value);
+  onContentionsChange = (event) => this.props.onContentionsChange(event.target.value);
+  onEvidenceChange = (event) => this.props.onEvidenceChange(event.target.value);
+  onCommentsForAttorneyChange = (event) => this.props.onCommentsForAttorneyChange(event.target.value);
 
   render() {
     let { worksheet, worksheetIssues, fetchingWorksheet } = this.props;
@@ -154,7 +152,7 @@ export class HearingWorksheet extends React.PureComponent {
       <form className="cf-hearings-worksheet-form">
         <WorksheetFormEntry
           name="Hearing Notes"
-          value={worksheet.notes || DEFAULT_NOTES_VALUE}
+          value={worksheet.summary || DEFAULT_NOTES_VALUE}
           onChange={this.onMilitaryServiceChange}
           id="worksheet-military-service"
           minRows={1}
@@ -234,7 +232,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   onContentionsChange,
-  onMilitaryServiceChange,
   onEvidenceChange,
   onCommentsForAttorneyChange,
   toggleWorksheetSaving,
