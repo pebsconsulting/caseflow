@@ -17,6 +17,7 @@ import WorksheetFooter from './components/WorksheetFooter';
 import LoadingScreen from '../components/LoadingScreen';
 import CFRichTextEditor from '../components/CFRichTextEditor';
 import DOMPurify from 'dompurify';
+import Textarea from 'react-textarea-autosize';
 
 // TODO Move all stream related to streams container
 import HearingWorksheetDocs from './components/HearingWorksheetDocs';
@@ -67,6 +68,32 @@ const toolbar = {
 };
 
 const DEFAULT_NOTES_VALUE = '<p><strong>Contentions</strong></p> <p></p> <p></p> <p><strong>Evidence</strong></p> <p></p> <p></p> <p><span style=\"color: rgb(50,58,69);background-color: rgb(255,255,255);font-size: 17.85;font-family: Source Sans Pro\", \"Helvetica Neue\", Helvetica, Roboto, Arial, sans-serif;\"><strong>Comments and special instructions to attorneys</strong></span></p> <p></p> <p></p>';
+
+class OldWorksheetFormEntry extends React.PureComponent {
+  render() {
+    const textAreaProps = {
+      minRows: 3,
+      maxRows: 5000,
+      value: this.props.value || '',
+      ..._.pick(
+        this.props,
+        [
+          'name',
+          'onChange',
+          'id',
+          'minRows'
+        ]
+      )
+    };
+
+    return <div className="cf-hearings-worksheet-data">
+      <label htmlFor={this.props.id}>{this.props.name}</label>
+      {this.props.print ?
+        <p>{this.props.value}</p> :
+        <Textarea {...textAreaProps} />}
+    </div>;
+  }
+}
 
 class WorksheetFormEntry extends React.PureComponent {
 
@@ -148,7 +175,27 @@ export class HearingWorksheet extends React.PureComponent {
     </div>;
 
     const secondWorksheetPage = <div className="cf-hearings-second-page">
-
+      <OldWorksheetFormEntry
+        name="Contentions"
+        value={worksheet.contentions}
+        onChange={this.onContentionsChange}
+        id="worksheet-contentions"
+        print={this.props.print}
+      />
+      <OldWorksheetFormEntry
+        name="Evidence"
+        value={worksheet.evidence}
+        onChange={this.onEvidenceChange}
+        id="worksheet-evidence"
+        print={this.props.print}
+      />
+      <OldWorksheetFormEntry
+        name="Comments and special instructions to attorneys"
+        value={worksheet.comments_for_attorney}
+        id="worksheet-comments-for-attorney"
+        onChange={this.onCommentsForAttorneyChange}
+        print={this.props.print}
+      />
       <form className="cf-hearings-worksheet-form">
         <WorksheetFormEntry
           name="Hearing Notes"
