@@ -94,23 +94,6 @@ body {
   }
 }
 
-.cf-actions {
-  margin-top: $cf-30px;
-  line-height: 2.225em;
-  clear: both;
-
-  [type="submit"] {
-    margin: 0;
-  }
-
-  &::after {
-    content: '\00a0';
-    line-height: 0;
-    display: block;
-    clear: both;
-  }
-}
-
 // Used for Caseflow app header rendered in Rails
 @mixin app-width($app) {
   margin-left: auto;
@@ -181,21 +164,10 @@ body {
   background-size: 32px 32px;
 }
 
-.cf-associated-header {
-  color: $color-gray;
-  font-size: 24px;
-  margin-left: 175px;
-  font-weight: normal;
-}
 
 .cf-right-side {
   text-align: right;
   float: right;
-}
-
-.cf-section-break {
-  margin-top: 50px;
-  margin-bottom: 50px;
 }
 
 .cf-validation {
@@ -218,17 +190,6 @@ body {
   opacity: 1 !important;
 }
 
-.cf-loading-button-text {
-  display: inline-block;
-  margin-right: 10px;
-  line-height: 0;
-  position: relative;
-}
-
-.cf-loading-button-symbol {
-  display: inline-block;
-}
-
 .cf-button-associated-text {
   color: $color-gray;
 }
@@ -237,11 +198,6 @@ body {
   color: $color-gray;
   margin-right: 30px;
   line-height: 35px;
-}
-
-.cf-form--full-width {
-  width: 100%;
-  max-width: 100%;
 }
 
 .cf-modal-body {
