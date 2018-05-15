@@ -94,6 +94,26 @@ body {
   }
 }
 
+<<<<<<< HEAD
+=======
+.cf-actions {
+  margin-top: $cf-30px;
+  line-height: 2.225em;
+  clear: both;
+
+  [type="submit"] {
+    margin: 0;
+  }
+
+  &::after {
+    content: '\00a0';
+    line-height: 0;
+    display: block;
+    clear: both;
+  }
+}
+
+>>>>>>> 5921a7b898e65e2a52de91d93f182fd506b7e468
 // Used for Caseflow app header rendered in Rails
 @mixin app-width($app) {
   margin-left: auto;
@@ -164,6 +184,15 @@ body {
   background-size: 32px 32px;
 }
 
+<<<<<<< HEAD
+=======
+.cf-associated-header {
+  color: $color-gray;
+  font-size: 24px;
+  margin-left: 175px;
+  font-weight: normal;
+}
+>>>>>>> 5921a7b898e65e2a52de91d93f182fd506b7e468
 
 .cf-right-side {
   text-align: right;
